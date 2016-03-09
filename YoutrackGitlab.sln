@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "youtrack-gitlab", "src\youtrack-gitlab\youtrack-gitlab\youtrack-gitlab.fsproj", "{5987FA4D-E189-46DA-9963-9182A05E2EC8}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "YoutrackGitlab", "src\YoutrackGitlab\YoutrackGitlab\YoutrackGitlab.fsproj", "{5987FA4D-E189-46DA-9963-9182A05E2EC8}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "youtrack-gitlab.Tests", "youtrack-gitlab.Tests\youtrack-gitlab.Tests.fsproj", "{30245B3B-7074-4C68-AD2D-B8375F542EA6}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "YoutrackGitlab.Tests", "tests\YoutrackGitlab.Tests\YoutrackGitlab.Tests.fsproj", "{30245B3B-7074-4C68-AD2D-B8375F542EA6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "paket", "paket", "{39499F6F-B343-4CF5-B368-F9597369E2B8}"
 	ProjectSection(SolutionItems) = preProject

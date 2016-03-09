@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.4.0.0</TargetFSharpCoreVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Name>youtrack-gitlab.Tests</Name>
+    <Name>YoutrackGitlab.Tests</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,8 +47,8 @@
     <None Include="paket.references" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\youtrack-gitlab\youtrack-gitlab\youtrack-gitlab.fsproj">
-      <Name>youtrack-gitlab</Name>
+    <ProjectReference Include="..\src\youtrack-gitlab\youtrack-gitlab\YoutrackGitlab.fsproj">
+      <Name>YoutrackGitlab</Name>
       <Project>{5987fa4d-e189-46da-9963-9182a05e2ec8}</Project>
       <Private>True</Private>
     </ProjectReference>
