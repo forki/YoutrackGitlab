@@ -2,19 +2,35 @@
 open YouTrackSharp.Infrastructure
 open YouTrackSharp.Projects
 
-type Credentials = { Username : string
-                     Password : string }
+type YoutrackSettings = { Username : string
+                          Password : string
+                          Host: string
+                          Port: int
+                          Path: string
+                          UseSsl: bool }
 
-let credentials =
+let settings =
     let username = System.Configuration.ConfigurationManager.AppSettings.["Username"]
     let password = System.Configuration.ConfigurationManager.AppSettings.["Password"]
+    let host = System.Configuration.ConfigurationManager.AppSettings.["Host"]
+    let port = int System.Configuration.ConfigurationManager.AppSettings.["Port"]
+    let path = System.Configuration.ConfigurationManager.AppSettings.["Path"]
+    let useSsl = match System.Configuration.ConfigurationManager.AppSettings.["UseSsl"] with
+                 | "True" -> true
+                 | "true" -> true
+                 | _ -> false
+
     { Username = username
-      Password = password }
+      Password = password
+      Host = host
+      Port = port
+      Path = path
+      UseSsl = useSsl }
 
 [<EntryPoint>]
 let main argv =
-    let connection = new Connection("youtrack.rhein-spree.com",8443, true)
-    connection.Authenticate(credentials.Username, credentials.Password)
+    let connection = new Connection(settings.Host,settings.Port, settings.UseSsl, settings.Path)
+    connection.Authenticate(settings.Username, settings.Password)
 
     let pm = new ProjectManagement(connection)
     let projects = pm.GetProjects()
