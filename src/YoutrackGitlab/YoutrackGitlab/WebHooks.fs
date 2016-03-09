@@ -2,4 +2,4 @@
 
 open FSharp.Data
 
-type Comment = JsonProvider<"GitlabWebHooks/Comment.json">
+type CommentEvent = JsonProvider<"GitlabWebHooks/Comment.json">
