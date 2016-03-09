@@ -10,13 +10,12 @@ module WebHooks =
                                   Comment: string
                                   CommitUrl: string }
 
-    let financeRegex () =
+    let issueIdRegex =
         let regex = new Regex("""(^|\s)([A-Z]+-(\d+))""")
         regex
 
     let extractTicketNr message =
-        let regex = financeRegex()
-        let matching = regex.Match(message)
+        let matching = issueIdRegex.Match(message)
         match matching.Success with
         | true  -> matching.Groups.[2].Value
         | false -> ""
