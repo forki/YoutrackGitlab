@@ -5,3 +5,4 @@ nuget Unquote
 nuget FSharp.Data
 nuget Zlib.Portable
 nuget YouTrackSharp
+nuget Suave

@@ -1,4 +1,9 @@
 ﻿
+open Suave
+open Suave.Filters
+open Suave.Operators
+open Suave.Successful
+
 open YouTrackSharp.Infrastructure
 open YouTrackSharp.Projects
 
@@ -39,5 +44,7 @@ let main argv =
         printfn "%A" project.ShortName
 
     printfn "%A" (pm.GetProject("BI").Name)
+
+    startWebServer defaultConfig (POST >=> (path "/comment" >=> OK "Comment"))
 
     0 // return an integer exit code
