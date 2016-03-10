@@ -41,8 +41,7 @@ let issueManagement =
 
 let toYoutrackComment command =
     let beginning = "New comment on commit in gitlab:\n\n"
-    let lines = command.Comment.Split([|'\n'|])
-    let quotedComment = ">" + System.String.Join("\n>",lines)
+    let quotedComment = ">" + command.Comment.Replace("\n","\n>")
     sprintf "%s%s\n\n%s" beginning quotedComment command.CommitUrl
 
 let processAsync ctx =
