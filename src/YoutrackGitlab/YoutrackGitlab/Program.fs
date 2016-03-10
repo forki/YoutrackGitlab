@@ -5,7 +5,6 @@ open Suave.Operators
 open Suave.Successful
 
 open YouTrackSharp.Infrastructure
-open YouTrackSharp.Projects
 open YouTrackSharp.Issues
 
 open YoutrackGitlab.WebHooks
