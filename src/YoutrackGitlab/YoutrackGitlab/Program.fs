@@ -6,6 +6,7 @@ open Suave.Successful
 
 open YouTrackSharp.Infrastructure
 open YouTrackSharp.Projects
+open YouTrackSharp.Issues
 
 open YoutrackGitlab.WebHooks
 
@@ -34,10 +35,16 @@ let settings =
       Path = path
       UseSsl = useSsl }
 
+let issueManagement =
+    let connection = new Connection(settings.Host,settings.Port, settings.UseSsl, settings.Path)
+    connection.Authenticate(settings.Username, settings.Password)
+    new IssueManagement(connection)
+
 let processAsync ctx =
     async{
         let json = System.Text.Encoding.UTF8.GetString ctx.request.rawForm
-        let result = eventToCommand (jsonToEvent json)
+        let result = eventToCommand (jsonToCommentCommitEvent json)
+        issueManagement.ApplyCommand(result.TicketId, "", result.Comment)
         return! (OK "Comment" ctx)
     }
 
