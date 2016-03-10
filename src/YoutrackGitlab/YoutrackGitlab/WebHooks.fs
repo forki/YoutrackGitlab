@@ -23,7 +23,7 @@ module WebHooks =
     let eventToCommand (event:CommentCommitEvent.Root) =
         let ticketNr = extractTicketNr event.Commit.Message
         { TicketId = ticketNr
-          Comment = event.Commit.Message
+          Comment = event.ObjectAttributes.Note
           CommitUrl = event.Commit.Url }
 
     let jsonToCommentCommitEvent json =

@@ -13,3 +13,7 @@ module ``When extracting comment commit command of comment commit event`` =
     [<Test>]
     let ``It should have extracted the correct ticket id`` () =
         test <@ command.TicketId = "BF-314" @>
+
+    [<Test>]
+    let ``It should have extracted the correct comment`` () =
+        test <@ command.Comment = "This is a commit comment. How does this work?" @>
