@@ -17,13 +17,33 @@ type YoutrackSettings = { Username : string
                           Path: string
                           UseSsl: bool }
 
-let settings =
-    let username = System.Configuration.ConfigurationManager.AppSettings.["Username"]
-    let password = System.Configuration.ConfigurationManager.AppSettings.["Password"]
-    let host = System.Configuration.ConfigurationManager.AppSettings.["Host"]
-    let port = int System.Configuration.ConfigurationManager.AppSettings.["Port"]
-    let path = System.Configuration.ConfigurationManager.AppSettings.["Path"]
-    let useSsl = match System.Configuration.ConfigurationManager.AppSettings.["UseSsl"] with
+type ServiceSettings = { Host: string
+                         Port: int}
+
+
+let (|StringIsNotNullOrWhitespace|_|) str =
+    match (not (System.String.IsNullOrWhiteSpace(str))) with
+    | true -> Some(str)
+    | _ -> None
+
+let serviceSettings =
+    let host = match System.Configuration.ConfigurationManager.AppSettings.["Host"] with
+               | StringIsNotNullOrWhitespace str -> str
+               | _ -> "127.0.0.1"
+
+    let port = match System.Configuration.ConfigurationManager.AppSettings.["Port"] with
+               | StringIsNotNullOrWhitespace str -> int str
+               | _ -> 8083
+    { Host = host
+      Port = port }
+
+let youtrackSettings =
+    let username = System.Configuration.ConfigurationManager.AppSettings.["Youtrack.Username"]
+    let password = System.Configuration.ConfigurationManager.AppSettings.["Youtrack.Password"]
+    let host = System.Configuration.ConfigurationManager.AppSettings.["Youtrack.Host"]
+    let port = int System.Configuration.ConfigurationManager.AppSettings.["Youtrack.Port"]
+    let path = System.Configuration.ConfigurationManager.AppSettings.["Youtrack.Path"]
+    let useSsl = match System.Configuration.ConfigurationManager.AppSettings.["Youtrack.UseSsl"] with
                  | "True" -> true
                  | "true" -> true
                  | _ -> false
@@ -36,8 +56,8 @@ let settings =
       UseSsl = useSsl }
 
 let connection =
-    let connection = new Connection(settings.Host,settings.Port, settings.UseSsl, settings.Path)
-    connection.Authenticate(settings.Username, settings.Password)
+    let connection = new Connection(youtrackSettings.Host,youtrackSettings.Port, youtrackSettings.UseSsl, youtrackSettings.Path)
+    connection.Authenticate(youtrackSettings.Username, youtrackSettings.Password)
     connection
 
 let youtrackUsers =
@@ -70,6 +90,7 @@ let processAsync ctx =
 
 [<EntryPoint>]
 let main argv =
-    startWebServer defaultConfig (POST >=> (path "/comment" >=> warbler (fun c -> processAsync)))
+    let config = defaultConfig.withBindings [HttpBinding.mkSimple HTTP serviceSettings.Host serviceSettings.Port]
+    startWebServer config (POST >=> (path "/comment" >=> warbler (fun c -> processAsync)))
 
     0 // return an integer exit code
