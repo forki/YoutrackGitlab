@@ -26,7 +26,7 @@ module WebHooks =
         { TicketId = ticketNr
           Comment = event.ObjectAttributes.Note
           CommitUrl = event.Commit.Url
-          User = event.User.Name }
+          User = event.User.Username }
 
     let jsonToCommentCommitEvent json =
         CommentCommitEvent.Parse(json)
