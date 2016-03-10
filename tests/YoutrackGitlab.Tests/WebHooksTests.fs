@@ -17,3 +17,7 @@ module ``When extracting comment commit command of comment commit event`` =
     [<Test>]
     let ``It should have extracted the correct comment`` () =
         test <@ command.Comment = "This is a commit comment. How does this work?" @>
+
+    [<Test>]
+    let ``It should have extracted the correct user name`` () =
+        test <@ command.User = "Administrator" @>

@@ -8,7 +8,8 @@ module WebHooks =
     type CommentCommitEvent = JsonProvider<"CommentCommit.json", EmbeddedResource="YoutrackGitlab, CommentCommit.json">
     type CommitCommentCommand = { TicketId: string
                                   Comment: string
-                                  CommitUrl: string }
+                                  CommitUrl: string
+                                  User: string }
 
     let issueIdRegex =
         let regex = new Regex("""(^|\s)([A-Z]+-(\d+))""")
@@ -24,7 +25,8 @@ module WebHooks =
         let ticketNr = extractTicketNr event.Commit.Message
         { TicketId = ticketNr
           Comment = event.ObjectAttributes.Note
-          CommitUrl = event.Commit.Url }
+          CommitUrl = event.Commit.Url
+          User = event.User.Name }
 
     let jsonToCommentCommitEvent json =
         CommentCommitEvent.Parse(json)
