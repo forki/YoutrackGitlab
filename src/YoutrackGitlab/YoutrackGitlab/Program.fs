@@ -5,6 +5,7 @@ open Suave.Operators
 open Suave.Successful
 
 open YouTrackSharp.Infrastructure
+open YouTrackSharp.Admin
 open YouTrackSharp.Issues
 
 open YoutrackGitlab.WebHooks
@@ -34,10 +35,21 @@ let settings =
       Path = path
       UseSsl = useSsl }
 
-let issueManagement =
+let connection =
     let connection = new Connection(settings.Host,settings.Port, settings.UseSsl, settings.Path)
     connection.Authenticate(settings.Username, settings.Password)
-    new IssueManagement(connection)
+    connection
+
+let youtrackUsers =
+    let usermanagement = new UserManagement(connection)
+    Seq.map (fun (x:User) -> x.Username) (usermanagement.GetAllUsers())
+
+let (|IsYoutrackUser|_|) user =
+    match Seq.contains user youtrackUsers with
+    | true -> Some(user)
+    | _ -> None
+
+let issueManagement = new IssueManagement(connection)
 
 let toYoutrackComment command =
     let beginning = sprintf "New comment on commit in gitlab from %s:\n\n" command.User
@@ -49,7 +61,10 @@ let processAsync ctx =
         let json = System.Text.Encoding.UTF8.GetString ctx.request.rawForm
         let result = eventToCommand (jsonToCommentCommitEvent json)
         let comment = toYoutrackComment result
-        issueManagement.ApplyCommand(result.TicketId, "", comment, false, result.User)
+        let runas = match result.User with
+                    | IsYoutrackUser user -> user
+                    | _ -> null
+        issueManagement.ApplyCommand(result.TicketId, "", comment, false, runas)
         return! (OK "Comment" ctx)
     }
 
