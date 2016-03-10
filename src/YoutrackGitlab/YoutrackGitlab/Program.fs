@@ -40,27 +40,23 @@ let issueManagement =
     connection.Authenticate(settings.Username, settings.Password)
     new IssueManagement(connection)
 
+let toYoutrackComment command =
+    let beginning = "New comment on commit in gitlab:\n\n"
+    let lines = command.Comment.Split([|'\n'|])
+    let quotedComment = ">" + System.String.Join("\n>",lines)
+    sprintf "%s%s\n\n%s" beginning quotedComment command.CommitUrl
+
 let processAsync ctx =
     async{
         let json = System.Text.Encoding.UTF8.GetString ctx.request.rawForm
         let result = eventToCommand (jsonToCommentCommitEvent json)
-        issueManagement.ApplyCommand(result.TicketId, "", result.Comment)
+        let comment = toYoutrackComment result
+        issueManagement.ApplyCommand(result.TicketId, "", comment)
         return! (OK "Comment" ctx)
     }
 
 [<EntryPoint>]
 let main argv =
-    let connection = new Connection(settings.Host,settings.Port, settings.UseSsl, settings.Path)
-    connection.Authenticate(settings.Username, settings.Password)
-
-    let pm = new ProjectManagement(connection)
-    let projects = pm.GetProjects()
-
-    for project in projects do
-        printfn "%A" project.ShortName
-
-    printfn "%A" (pm.GetProject("BI").Name)
-
     startWebServer defaultConfig (POST >=> (path "/comment" >=> warbler (fun c -> processAsync)))
 
     0 // return an integer exit code
