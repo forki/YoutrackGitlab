@@ -26,3 +26,5 @@ module WebHooks =
           Comment = event.Commit.Message
           CommitUrl = event.Commit.Url }
 
+    let jsonToEvent json =
+        CommentCommitEvent.Parse(json)

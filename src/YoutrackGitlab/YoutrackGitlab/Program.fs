@@ -7,6 +7,8 @@ open Suave.Successful
 open YouTrackSharp.Infrastructure
 open YouTrackSharp.Projects
 
+open YoutrackGitlab.WebHooks
+
 type YoutrackSettings = { Username : string
                           Password : string
                           Host: string
@@ -32,6 +34,13 @@ let settings =
       Path = path
       UseSsl = useSsl }
 
+let processAsync ctx =
+    async{
+        let json = System.Text.Encoding.UTF8.GetString ctx.request.rawForm
+        let result = eventToCommand (jsonToEvent json)
+        return! (OK "Comment" ctx)
+    }
+
 [<EntryPoint>]
 let main argv =
     let connection = new Connection(settings.Host,settings.Port, settings.UseSsl, settings.Path)
@@ -45,6 +54,6 @@ let main argv =
 
     printfn "%A" (pm.GetProject("BI").Name)
 
-    startWebServer defaultConfig (POST >=> (path "/comment" >=> OK "Comment"))
+    startWebServer defaultConfig (POST >=> (path "/comment" >=> warbler (fun c -> processAsync)))
 
     0 // return an integer exit code
