@@ -1,8 +1,9 @@
+source lib
 source https://nuget.org/api/v2
 
+nuget YouTrackSharp 2.0.31-RS1
 nuget FsUnit
 nuget Unquote
 nuget FSharp.Data
 nuget Zlib.Portable
-nuget YouTrackSharp
 nuget Suave

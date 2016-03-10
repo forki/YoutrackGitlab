@@ -14,6 +14,8 @@ NUGET
     Suave (1.1.1)
       FSharp.Core (>= 3.1.2.5)
     Unquote (3.1.1)
-    YouTrackSharp (2.0.30)
-      EasyHttp (>= 1.6.29.0)
     Zlib.Portable (1.11.0)
+  remote: lib
+  specs:
+    YouTrackSharp (2.0.31-RS1)
+      EasyHttp (>= 1.6.29.0)
