@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>youtrack_gitlab.Tests</RootNamespace>
     <AssemblyName>youtrack_gitlab.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.4.0.0</TargetFSharpCoreVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Name>YoutrackGitlab.Tests</Name>
