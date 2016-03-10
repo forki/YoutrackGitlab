@@ -49,7 +49,7 @@ let processAsync ctx =
         let json = System.Text.Encoding.UTF8.GetString ctx.request.rawForm
         let result = eventToCommand (jsonToCommentCommitEvent json)
         let comment = toYoutrackComment result
-        issueManagement.ApplyCommand(result.TicketId, "", comment)
+        issueManagement.ApplyCommand(result.TicketId, "", comment, false, result.User)
         return! (OK "Comment" ctx)
     }
 
