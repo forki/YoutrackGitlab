@@ -1,7 +1,10 @@
 source lib
 source https://nuget.org/api/v2
 
+nuget FAKE
+
 nuget YouTrackSharp 2.0.31-RS1
+nuget nunit.runners
 nuget FsUnit
 nuget Unquote
 nuget FSharp.Data
