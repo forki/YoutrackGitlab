@@ -6,3 +6,5 @@ Powered by Fsharp.Data and Suave.io
 The endpoint ``http://<yourhost>/comment`` has to be configured as webhook for comments in Gitlab. On every new comment the bridge tries 
 to extract the corresping Youtrack-Ticket-Id out of the commented commit. It then creates a comment on the youtrack ticket with a link to
 corresponding Gitlab-Commit.
+
+[![Build status](https://ci.appveyor.com/api/projects/status/h2jxd49dktnb903c?svg=true)](https://ci.appveyor.com/project/brase/youtrackgitlab)
