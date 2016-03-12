@@ -2,6 +2,7 @@ source lib
 source https://nuget.org/api/v2
 
 nuget FAKE
+nuget FSharp.Core redirects: force
 
 nuget YouTrackSharp 2.0.31-RS1
 nuget nunit.runners
