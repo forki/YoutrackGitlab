@@ -7,3 +7,4 @@ WORKDIR /app
 ADD . /app
 RUN /app/build.sh
 
+ENTRYPOINT ["/usr/bin/mono", "/app/build/YoutrackGitlab/YoutrackGitlab.exe"]
