@@ -1,4 +1,4 @@
 language: csharp
 
 script: 
-  - ./build.sh Default
+  - ./build.sh
