@@ -4,7 +4,7 @@ NUGET
     EasyHttp (1.6.80)
       JsonFx (>= 2.0.1209.2802)
     FAKE (4.21.4)
-    FSharp.Core (4.0.0.1)
+    FSharp.Core (4.0.0.1) - redirects: force
     FSharp.Data (2.2.5)
       Zlib.Portable (>= 1.10.0) - framework: portable-net40+sl50+wp80+win80
     FsUnit (2.1.0)
