@@ -8,3 +8,4 @@ to extract the corresping Youtrack-Ticket-Id out of the commented commit. It the
 corresponding Gitlab-Commit.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/h2jxd49dktnb903c?svg=true)](https://ci.appveyor.com/project/brase/youtrackgitlab)
+[![Build Status](https://travis-ci.org/rheinspree/YoutrackGitlab.svg?branch=master)](https://travis-ci.org/rheinspree/YoutrackGitlab)
